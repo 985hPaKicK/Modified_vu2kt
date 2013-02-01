@@ -231,6 +231,8 @@ public class QualcommSharedRIL extends RIL implements CommandsInterface {
             }
             String addresses = p.readString();
             if (!TextUtils.isEmpty(addresses)) {
+//cm10 f200
+		addresses = addresses.replace(";", "");
                 dataCall.addresses = addresses.split(" ");
             }
             String dnses = p.readString();
