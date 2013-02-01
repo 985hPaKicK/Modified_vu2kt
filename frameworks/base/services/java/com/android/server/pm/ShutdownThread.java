@@ -409,6 +409,22 @@ public final class ShutdownThread extends Thread {
             }
         }
 
+//cm10 f200
+	if ( mRebootReason != null ) {
+	    if ( mRebootReason.compareTo("recovery") == 0 ) {
+	    	Log.i(TAG, "Reboot recovery. try to set recovery mode");	
+	    	mRebootReason = "";
+	    	try {
+		    String[] cmds = {"/system/bin/sh", "-c", "echo 1 > /data/local/tmp/.recovery_mode"};
+		    Process proc = Runtime.getRuntime().exec(cmds);
+		    proc.waitFor();
+	    	} catch (Exception ee) {
+		    Log.e(TAG, "Faild to set recovery mode.", ee);
+	    	}
+	    	Log.i(TAG, "Complete!");	
+ 	    }
+	}
+
         rebootOrShutdown(mReboot, mRebootReason);
     }
 
